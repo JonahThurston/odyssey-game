@@ -5,7 +5,7 @@ import { ResourceRecord } from './resources-record';
 //quest has many scenes
 //scenes have onEnter effects, many messages, and multiple choices
 //effects have a list of resource names and numbers, and a list of relationship names and numbers
-//messages have a speaker, text, and an optional picture
+//messages have a speaker, text
 //choices have text, an optional stat + difficulty, an optional flag lock, and a nextScene link
 export type Scene = {
   id: number;
@@ -13,6 +13,7 @@ export type Scene = {
   effects?: {
     resourceEffects?: ResourceRecord;
     relationshipEffects?: RelationshipRecord;
+    flagEffects: string[];
   };
   messages: Message[];
   question: Choice[];
