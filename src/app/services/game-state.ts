@@ -32,14 +32,15 @@ export class GameState {
     }
 
     const url = `/dialogue/${this.questTitle()}/scene${this.sceneNumber()}.json`;
-    let sceneJson: any;
 
-    this.http.get(url).subscribe((res) => {
-      sceneJson = res;
+    this.http.get<Scene>(url).subscribe({
+      next: (sceneObj) => {
+        this.currentScene.set(sceneObj);
+        console.log(this.currentScene());
+      },
+      error: (err) => {
+        console.error('Failed to load scene', err);
+      },
     });
-
-    const sceneObj = JSON.parse(sceneJson);
-    //TODO: verify that sceneObj is  scene
-    this.currentScene.set(sceneObj);
   }
 }

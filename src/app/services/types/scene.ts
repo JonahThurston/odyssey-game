@@ -16,7 +16,7 @@ export type Scene = {
     flagEffects: string[];
   };
   messages: Message[];
-  question: Choice[];
+  choices: Choice[];
 };
 
 type Message = {
