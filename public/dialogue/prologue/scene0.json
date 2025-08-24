@@ -1,24 +1,28 @@
 {
-  "id": 0,
-  "prevSceneId": -1,
+  "id": "0",
+  "prevSceneId": "-1",
   "messages": [
     {
+      "id": 0,
       "speaker": "narrator",
       "text": "kys"
     },
     {
+      "id": 1,
       "speaker": "Odyseus",
       "text": "no"
     }
   ],
   "choices": [
     {
+      "id": 0,
       "text": "shooting them",
-      "nextSceneId": 1
+      "nextSceneId": "1"
     },
     {
+      "id": 1,
       "text": "punching them",
-      "nextSceneId": 2
+      "nextSceneId": "2"
     }
   ]
 }

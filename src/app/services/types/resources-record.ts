@@ -1,4 +1,8 @@
-export type ResourceRecord = Record<string, number>;
+import z from 'zod';
+
+export const ResourceRecordSchema = z.record(z.string(), z.number());
+
+export type ResourceRecord = z.infer<typeof ResourceRecordSchema>;
 
 export const initialResources: ResourceRecord = {
   manpower: 50,

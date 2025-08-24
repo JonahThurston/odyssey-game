@@ -11,6 +11,6 @@ export class GamePage {
   private stateManager = inject(GameState);
 
   testState() {
-    this.stateManager.procedeToScene(0);
+    this.stateManager.procedeToScene('0');
   }
 }
