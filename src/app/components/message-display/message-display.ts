@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { Message } from '../../../services/types/scene';
+import { Message } from '../../services/types/scene';
 
 @Component({
   selector: 'app-message-display',
