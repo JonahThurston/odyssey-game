@@ -1,6 +1,6 @@
 import { Component, inject, input } from '@angular/core';
-import { GameState } from '../../services/game-state';
-import { Choice } from '../../services/types/scene';
+import { GameState } from '../../../services/game-state';
+import { Choice } from '../../../services/types/scene';
 
 @Component({
   selector: 'app-choice-display',
