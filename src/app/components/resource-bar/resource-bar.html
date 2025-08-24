@@ -1,8 +1,10 @@
+@if (stateManager.flags()['introDone']) {
 <div class="resources">
   @for (resource of resources; track resource) {
   <p>{{ resource }}: {{ getValue(resource) }}</p>
   }
 </div>
+}
 
 <div class="character-stats">
   @for (stat of stats; track stat) {

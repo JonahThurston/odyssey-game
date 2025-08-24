@@ -55,8 +55,71 @@ export class GameState {
       )
       .subscribe((sceneObj) => {
         this.currentScene.set(sceneObj);
-        // TODO: Handle state updates of current scene
+
+        if (sceneObj.effects) {
+          const { resourceEffects, relationshipEffects, flagEffects } =
+            sceneObj.effects;
+          this.applyEffects(resourceEffects, relationshipEffects, flagEffects);
+        }
+
         console.log(this.currentScene());
       });
+  }
+
+  private applyEffects(
+    resourceEffects?: ResourceRecord,
+    relationshipEffects?: RelationshipRecord,
+    flagEffects?: string[]
+  ) {
+    if (resourceEffects) {
+      this.resources.update((prevRecord) => {
+        const updatedRecord = { ...prevRecord };
+
+        for (const resource in resourceEffects) {
+          if (!(resource in updatedRecord)) {
+            throw new Error(`Unknown resource key: ${resource}`);
+          }
+
+          updatedRecord[resource] =
+            updatedRecord[resource] + resourceEffects[resource];
+        }
+
+        return updatedRecord;
+      });
+    }
+
+    if (relationshipEffects) {
+      this.relationships.update((prevRecord) => {
+        const updatedRecord = { ...prevRecord };
+
+        for (const relationship in relationshipEffects) {
+          if (!(relationship in updatedRecord)) {
+            throw new Error(`Unknown relationship key: ${relationship}`);
+          }
+
+          updatedRecord[relationship] =
+            updatedRecord[relationship] + relationshipEffects[relationship];
+        }
+
+        return updatedRecord;
+      });
+    }
+
+    if (flagEffects) {
+      console.log(`flag effects: ${flagEffects}`);
+      this.flags.update((prevRecord) => {
+        const updatedRecord = { ...prevRecord };
+
+        for (const flag of flagEffects) {
+          if (!(flag in updatedRecord)) {
+            throw new Error(`Unknown flag key: ${flag}`);
+          }
+
+          updatedRecord[flag] = true;
+        }
+
+        return updatedRecord;
+      });
+    }
   }
 }

@@ -1,0 +1,13 @@
+<div class="morals">
+  @for (moral of morality; track moral) {
+  <p>{{ moral }}: {{ getValue(moral) }}</p>
+  }
+</div>
+
+@if (stateManager.flags()['prologueDone']) {
+<div class="relationships">
+  @for (relationship of relationships; track relationship) {
+  <p>{{ relationship }}: {{ getValue(relationship) }}</p>
+  }
+</div>
+}

@@ -1,6 +1,22 @@
 {
   "id": "1",
-  "prevSceneId": "-1",
+  "prevSceneId": "0",
+  "effects": {
+    "resourceEffects": {
+      "manpower": 1,
+      "supplies": 2,
+      "munitions": 3,
+      "wit": 4,
+      "physicality": 5
+    },
+    "relationshipEffects": {
+      "crew": 1,
+      "firstMate": 2,
+      "honor": 6,
+      "mercy": -7
+    },
+    "flagEffects": ["prologueDone"]
+  },
   "messages": [
     {
       "id": 0,
