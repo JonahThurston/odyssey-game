@@ -45,3 +45,5 @@ export const SceneSchema = z
   .strict();
 
 export type Scene = z.infer<typeof SceneSchema>;
+export type Message = z.infer<typeof MessageSchema>;
+export type Choice = z.infer<typeof ChoiceSchema>;

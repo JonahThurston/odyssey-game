@@ -1,16 +1,18 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { GameState } from '../../services/game-state';
+import { ResourceBar } from '../../components/resource-bar/resource-bar';
+import { SceneDisplay } from '../../components/scene-display/scene-display';
 
 @Component({
   selector: 'app-game-page',
-  imports: [],
+  imports: [ResourceBar, SceneDisplay],
   templateUrl: './game-page.html',
   styleUrl: './game-page.css',
 })
-export class GamePage {
-  private stateManager = inject(GameState);
+export class GamePage implements OnInit {
+  stateManager = inject(GameState);
 
-  testState() {
-    this.stateManager.procedeToScene('0');
+  ngOnInit(): void {
+    this.stateManager.procedeToScene(this.stateManager.sceneNumber());
   }
 }

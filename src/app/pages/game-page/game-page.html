@@ -1,1 +1,4 @@
-<button (click)="testState()">TEST THE THING</button>
+<div class="game-display">
+  <app-resource-bar />
+  <app-scene-display [scene]="stateManager.currentScene()" />
+</div>

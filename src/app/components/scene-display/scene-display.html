@@ -1,0 +1,15 @@
+@if (scene() === undefined) {
+<p>Error: Failed to retrieve scene. Tell Jonah that he fucked smth up.</p>
+} @else {
+<div class="messages">
+  @for(message of scene()!.messages; track message.id) {
+  <app-message-display [message]="message" />
+  }
+</div>
+
+<div class="choices">
+  @for (choice of scene()!.choices; track choice.id) {
+  <app-choice-display [choice]="choice" />
+  }
+</div>
+}

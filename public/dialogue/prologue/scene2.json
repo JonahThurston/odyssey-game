@@ -1,16 +1,16 @@
 {
-  "id": "1",
+  "id": "2",
   "prevSceneId": "-1",
   "messages": [
     {
       "id": 0,
       "speaker": "narrator",
-      "text": "you shooted them"
+      "text": "you punched them"
     },
     {
       "id": 1,
       "speaker": "Odyseus",
-      "text": "shoot"
+      "text": "punch"
     }
   ],
   "choices": []

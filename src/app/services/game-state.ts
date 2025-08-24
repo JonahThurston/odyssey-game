@@ -40,6 +40,7 @@ export class GameState {
         map((raw) => {
           const parsed = SceneSchema.safeParse(raw);
           if (!parsed.success) {
+            //chat generated code to make the error readable
             const details = parsed.error.errors
               .map((e) => `${e.path.join('.') || '(root)'}: ${e.message}`)
               .join('; ');
@@ -52,14 +53,10 @@ export class GameState {
           return throwError(() => err);
         })
       )
-      .subscribe({
-        next: (sceneObj) => {
-          this.currentScene.set(sceneObj);
-          console.log(this.currentScene());
-        },
-        error: () => {
-          // already logged
-        },
+      .subscribe((sceneObj) => {
+        this.currentScene.set(sceneObj);
+        // TODO: Handle state updates of current scene
+        console.log(this.currentScene());
       });
   }
 }
