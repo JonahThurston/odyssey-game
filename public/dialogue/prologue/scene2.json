@@ -3,17 +3,17 @@
   "prevSceneId": "0",
   "effects": {
     "resourceEffects": {
-      "manpower": 1,
-      "supplies": 2,
-      "munitions": 3,
-      "wit": 4,
-      "physicality": 5
+      "wit": 1,
+      "physicality": 2,
+      "manpower": 3,
+      "supplies": 4,
+      "munitions": -5
     },
     "relationshipEffects": {
-      "crew": 1,
-      "firstMate": 2,
-      "honor": 6,
-      "mercy": -7
+      "honor": 1,
+      "mercy": 2,
+      "crew": 3,
+      "firstMate": -4
     },
     "flagEffects": ["introDone"]
   },
