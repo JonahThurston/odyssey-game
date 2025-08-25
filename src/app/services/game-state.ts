@@ -1,14 +1,35 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { FlagRecord, initialFlags } from './types/flag-record';
-import { initialResources, ResourceRecord } from './types/resources-record';
+import {
+  FlagRecord,
+  FlagRecordSchema,
+  initialFlags,
+} from './types/flag-record';
+import {
+  initialResources,
+  ResourceRecord,
+  ResourceRecordSchema,
+} from './types/resources-record';
 import {
   initialRelationships,
   RelationshipRecord,
+  RelationshipRecordSchema,
 } from './types/relationship-record';
 import { Scene, SceneSchema } from './types/scene';
 import { HttpClient } from '@angular/common/http';
 import { map, catchError, throwError } from 'rxjs';
+import z from 'zod';
 
+const GameStateSchema = z
+  .object({
+    questTitle: z.string(),
+    sceneNumber: z.string(),
+    flags: FlagRecordSchema,
+    resources: ResourceRecordSchema,
+    relationships: RelationshipRecordSchema,
+  })
+  .strict();
+
+type stateObject = z.infer<typeof GameStateSchema>;
 @Injectable({
   providedIn: 'root',
 })
@@ -131,5 +152,36 @@ export class GameState {
         return updatedRecord;
       });
     }
+  }
+
+  public save() {
+    localStorage.setItem('state', JSON.stringify(this.getCurrentState()));
+  }
+
+  public export(): stateObject {
+    const stateString = localStorage.getItem('state');
+    const stateObject = stateString ? JSON.parse(stateString) : null;
+
+    const parsed = GameStateSchema.safeParse(stateObject);
+    if (!parsed.success) {
+      //chat generated code to make the error readable
+      const details = parsed.error.errors
+        .map((e) => `${e.path.join('.') || '(root)'}: ${e.message}`)
+        .join('; ');
+      throw new Error(`State validation failed: ${details}`);
+    }
+    return parsed.data;
+  }
+
+  public import() {}
+
+  private getCurrentState(): stateObject {
+    return {
+      questTitle: this.questTitle(),
+      sceneNumber: this.sceneNumber(),
+      flags: this.flags(),
+      resources: this.resources(),
+      relationships: this.relationships(),
+    };
   }
 }
