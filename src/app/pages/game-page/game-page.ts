@@ -16,4 +16,24 @@ export class GamePage implements OnInit {
   ngOnInit(): void {
     this.stateManager.procedeToScene(this.stateManager.sceneNumber());
   }
+
+  undo() {
+    this.reverseEffects();
+    this.stateManager.procedeToScene(
+      this.stateManager.currentScene()!.prevSceneId
+    );
+  }
+
+  private reverseEffects() {
+    if (this.stateManager.currentScene()!.effects) {
+      const { resourceEffects, relationshipEffects, flagEffects } =
+        this.stateManager.currentScene()!.effects!;
+      this.stateManager.applyEffects(
+        resourceEffects,
+        relationshipEffects,
+        flagEffects,
+        true
+      );
+    }
+  }
 }

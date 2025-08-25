@@ -24,7 +24,7 @@ export class GameState {
 
   private http = inject(HttpClient);
 
-  public procedeToScene(sceneId: string) {
+  public procedeToScene(sceneId: string, skipEffects?: boolean) {
     if (sceneId === 'overworld') {
       this.questTitle.set('overworld');
       this.sceneNumber.set('0');
@@ -56,7 +56,7 @@ export class GameState {
       .subscribe((sceneObj) => {
         this.currentScene.set(sceneObj);
 
-        if (sceneObj.effects) {
+        if (!skipEffects && sceneObj.effects) {
           const { resourceEffects, relationshipEffects, flagEffects } =
             sceneObj.effects;
           this.applyEffects(resourceEffects, relationshipEffects, flagEffects);
@@ -66,11 +66,16 @@ export class GameState {
       });
   }
 
-  private applyEffects(
+  public applyEffects(
     resourceEffects?: ResourceRecord,
     relationshipEffects?: RelationshipRecord,
-    flagEffects?: string[]
+    flagEffects?: string[],
+    undo?: boolean
   ) {
+    let multiplier = 1;
+    if (undo) {
+      multiplier = -1;
+    }
     if (resourceEffects) {
       this.resources.update((prevRecord) => {
         const updatedRecord = { ...prevRecord };
@@ -81,7 +86,7 @@ export class GameState {
           }
 
           updatedRecord[resource] =
-            updatedRecord[resource] + resourceEffects[resource];
+            updatedRecord[resource] + multiplier * resourceEffects[resource];
         }
 
         return updatedRecord;
@@ -98,7 +103,8 @@ export class GameState {
           }
 
           updatedRecord[relationship] =
-            updatedRecord[relationship] + relationshipEffects[relationship];
+            updatedRecord[relationship] +
+            multiplier * relationshipEffects[relationship];
         }
 
         return updatedRecord;
@@ -115,7 +121,11 @@ export class GameState {
             throw new Error(`Unknown flag key: ${flag}`);
           }
 
-          updatedRecord[flag] = true;
+          if (undo) {
+            updatedRecord[flag] = false;
+          } else {
+            updatedRecord[flag] = true;
+          }
         }
 
         return updatedRecord;

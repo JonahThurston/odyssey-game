@@ -2,4 +2,9 @@
   <app-resource-bar />
   <app-scene-display [scene]="stateManager.currentScene()" />
   <app-social-bar />
+
+  @if (this.stateManager.currentScene() &&
+  this.stateManager.currentScene()!.prevSceneId != '-1') {
+  <button (click)="undo()">previous scene</button>
+  }
 </div>
